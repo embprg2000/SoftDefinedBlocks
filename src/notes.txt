@@ -1,0 +1,21 @@
+VarMain Fs:1
+using device 0: ezcap USB 2.0 DVB-T/DAB/FM dongle
+Found Rafael Micro R820T tuner
+Exact sample rate is: 1000000.026491 Hz
+srcSDR Fs:1e+06
+approxRMSIQ Fs:1
+device tuned for:  107.500000 MHz
+LNA gain:          29.7 dB
+IF sample rate:    1000000 Hz
+RTL AGC mode:      enabled
+LowPassFilterFir Fs:1e+06
+PhaseDiscriminator Fs:1e+06
+DownsampleFilter Fs:250000
+DownsampleFilter Fs:48000
+RMS Fs:1
+HighPassFilterIir Fs:48000
+LowPassFilterRC Fs:48000
+SinkAudio Fs:1
+
+// Widgets
+//http://www.3quarks.com/en/SegmentDisplay/index.html

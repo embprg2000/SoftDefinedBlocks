@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+table.conn {
+	border-radius: 10px;
+	border-collapse: collapse;
+	padding: 5px;
+	text-align: center;
+	background-color: blue;
+	color: white;
+}
+
+table.conn, td.conn {
+	border: 1px solid white;
+	border-radius: 10px;
+	border-collapse: collapse;
+	padding: 5px;
+	text-align: center;
+	background-color: blue;
+	color: white;
+}
+
+table.slider {
+	border-radius: 10px;
+	padding: 5px;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+	text-align: center;
+	background-color: blue;
+	color: white;   
+}
+
+td.slider {
+	border: 1px solid white;
+	border-collapse: collapse;
+	padding: 5px;
+	text-align: center;
+	background-color: blue;
+}
+
+p.center {
+	text-align: center;
+}
+
+</style>
+
+</head>
+<body>
+
+	<h1><p class="center">Work in progress</p></h1>
+
+	<p class="center">
+		<table class="conn">
+			<tr>
+				<th style="width: 100px">Connected</th>
+				<th style="width: 300px">Mess</th>
+				<th style="width: 100px">Disconnect</th>
+			</tr>
+			<tr>
+				<td class="conn"><div id="connSt">-</div></td>
+				<td class="conn"><div id="connMsg">-</div></td>
+				<td class="conn"><button type="button" onClick="buttonToServer('Exit')">Exit</button></td>
+			</tr>
+		</table>
+	</p>
+
+	<br>
+	<div id="result"></div>
+
+	<table class="conn">
+		<tr>
+			<th style="width: 100px">Frame</th>
+			<th style="width: 100px">Delta</th>
+			<th style="width: 100px">SinkSample</th>
+			<th style="width: 100px">Frequency</th>
+			<th style="width: 100px">IF</th>
+			<th style="width: 100px">RF</th>
+			<th style="width: 100px">BaseBand</th>
+			<th style="width: 100px">Gain</th>					
+		</tr>
+		<tr>
+			<td class="conn"><div id="Frame">-</div></td>
+			<td class="conn"><div id="Delta">-</div></td>
+			<td class="conn"><div id="SinkSample">-</div></td>
+			<td class="conn"><div id="Freq">-</div></td>
+			<td class="conn"><div id="IF">-</div></td>
+			<td class="conn"><div id="RF">-</div></td>
+			<td class="conn"><div id="BaseBand">-</div></td>
+			<td class="conn"><div id="Gain">-</div></td>				
+		</tr>
+	</table>
+
+	<hr>
+	<div id="sliders">+++++++++</div>
+
+	<hl>
+	<button type="button" id="Test1" onClick="buttonToServer(this.id)">Fill Demo</button>
+	<div id="divTest1"></div>
+
+	<hl>
+	<button type="button" id="Test2" onClick="buttonToServer(this.id)">Graph</button>
+	<br>
+	
+	<canvas id="canv1" width="502" height="400"	style="border: 1px solid #000000;"></canvas>
+
+	<script type="text/javascript">
+		var ServerEvent;
+	
+		<!-- Setup the sliders -->
+		var sl1 = new slider(), sl2 = new slider();
+	
+		sl = '<table class="slider">';
+		sl += '<tr>' + sl1.getHTML('sl1','Frequency','MHz',87.0,108.0,0.2,99.1,1) + '</tr>';
+		sl += '<tr>' + sl2.getHTML('sl2','Volume','',0,100,1,10,1) + '</tr>';
+		sl += '</table>';
+		document.getElementById('sliders').innerHTML = sl;
+	
+		function slider() {
+			this.getHTML = function(obj,name, unit, min, max, step, def) {
+				sl  = '<td class="slider">' + name + ':</td>';
+				sl += '<td class="slider">' + min + ' ' + unit + '</td>';
+				sl += '<td class="slider"><input type="range" id=\'id' + name + '\' min=' + min
+						+ ' max=' + max + ' step=' + step + ' value=' + def
+						+ ' onclick="'+obj+'.update(\'' + name + '\')"></td>';
+				sl += '<td class="slider">' + max + ' ' + unit + '&nbsp;</td>';
+				sl += '<td class="slider"><button onclick="'+obj+'.valInc(-1,\'' + name + '\')">-</button></td>';
+				sl += '<td class="slider"><button onclick="'+obj+'.valInc(1,\'' + name + '\')">+</button></td>';
+				sl += '<td class="slider"><input id=\'idInp' + name + '\' size="6" value=' + def
+						+ ' onchange="'+obj+'.valChange(\'' + name + '\')"></td>';
+				return sl;
+			}
+
+			this.valInc = function(dir, strID) {
+				console.log('valInc  ' + "id" + strID)
+				var val = +document.getElementById("id" + strID).value;
+				var step = +document.getElementById("id" + strID).step;
+
+				val = val + (step * +dir);
+				document.getElementById("id" + strID).value = val;
+				this.update(strID);
+			}
+
+			this.valChange = function(strID) {
+				var val = +document.getElementById("idInp" + strID).value;
+				document.getElementById("id" + strID).value = val;
+				this.update(strID);  // Check min and max values.
+			}
+
+			this.update = function(strID) {
+				console.log('update')
+				val = document.getElementById("id" + strID).value;
+				document.getElementById("idInp" + strID).value = val;
+			}
+		}
+
+		<!-- Connect to server -->
+		if (typeof (EventSource) !== "undefined") {
+			document.getElementById("connSt").innerHTML = "Not Connected";
+			ServerEvent = new EventSource("http://localhost:1235");
+
+			document.getElementById("connSt").innerHTML = "After EventSource";
+
+			ServerEvent.onopen = function(event) {
+				document.getElementById("connSt").innerHTML = "Connected";
+			};
+
+			ServerEvent.onmessage = function(event) {
+				document.getElementById("connMsg").innerHTML = event.data.substring(0,15);
+				var res = event.data.split(",");
+
+				if (res[0] == "VAL" || res[0] == "STR")
+				{
+					for (var i=1; i<res.length-1; i += 2)
+						document.getElementById(res[i]).innerHTML = res[i+1];
+				}
+
+				if (res[0] == "GRP") {
+					console.log(res[1] + "," + res[2] + "," + res[3] + ","
+							+ res[4] + "," + res[5] + "," + res[6] + ","
+							+ res[7])
+					graphArr(res[1], res[2], res[3], res[4], res[5], res[6],
+							res[7], res.slice(8, res.length));
+				}
+			};
+
+			ServerEvent.onerror = function(event) {
+				document.getElementById("connSt").innerHTML = "Error";
+			};
+
+		} else {
+			document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
+		}
+		
+		<!-- Send message to server -->
+		function msgToServer(msg) {
+			window.frames['dataframe'].window.location.replace(msg);
+		}
+
+		function buttonToServer(str) {
+			if (str == 'Exit')
+			{
+				ServerEvent.close();
+				document.getElementById("connSt").innerHTML = "Closed";
+			}			
+			msgToServer("/command/BUTT," + str);
+		}
+		
+		<!-- Helper functions -->
+		function ModifyBGColor(id, newColor) {
+			var mElement = document.getElementById(id);
+			mElement.style.backgroundColor = newColor;
+		}
+		function ModifyTextColor(id, newColor) {
+			var mElement = document.getElementById(id);
+			mElement.style.color = newColor;
+		}
+		function ModifyBoxSize(id, newWidth, newHeight) {
+			var mElement = document.getElementById(id);
+			mElement.style.width = newWidth;
+			mElement.style.height = newheight;
+		}
+		function ModifyBoxPosition(id, newLeft, newTop) {
+			var mElement = document.getElementById(id);
+			mElement.style.left = newLeft;
+			mElement.style.top = newTop;
+		}
+		
+		<!-- Graphing functions -->
+		function xyMap(strCanvas) {
+			var canvas = document.getElementById(strCanvas);
+
+			if (null == canvas || !canvas.getContext) {
+				console.log('xyMap: Canvas "' + strCanvas + '" not found')
+				return;
+			}
+
+			this.ctx = canvas.getContext("2d");
+			this.x1 = 0.1 * canvas.width;
+			this.x2 = 0.95 * canvas.width;
+			this.y1 = 0.2 * canvas.height;
+			this.y2 = 0.95 * canvas.height;
+			this.yy = canvas.height;
+
+			this.axis = function(rx1, rx2, ry1, ry2) {
+				this.rx1 = rx1, this.ry1 = ry1;
+				this.rx2 = rx2, this.ry2 = ry2;
+
+				this.dx = (this.x2 - this.x1) / (rx2 - rx1);
+				this.dy = (this.y2 - this.y1) / (ry2 - ry1);
+			}
+
+			this.graphAxis = function(col) {
+				var ctx = this.ctx;
+				var yy = this.yy;
+
+				ctx.beginPath();
+				ctx.strokeStyle = col;
+				ctx.moveTo(this.x1, this.yy - this.y1);
+				ctx.lineTo(this.x2, this.yy - this.y1);
+				ctx.lineTo(this.x2, this.yy - this.y2);
+				ctx.lineTo(this.x1, this.yy - this.y2);
+				ctx.lineTo(this.x1, this.yy - this.y1);
+				ctx.stroke();
+			}
+
+			this.vx = function(x) {
+				return this.x1 + x * this.dx;
+			}
+
+			this.vy = function(y) {
+				return this.yy - (this.y1 + (y - this.ry1) * this.dy);
+			}
+
+			this.graphFunc = function(func, color, thick) {
+				var ctx = this.ctx;
+
+				ctx.beginPath();
+
+				//ctx.font='15px Arial';
+				//ctx.fillText('Hello World', 10,100);
+
+				ctx.lineWidth = thick;
+				ctx.strokeStyle = color;
+
+				var xinc = (this.rx2 - this.rx1) / 200;
+				for (var x = this.rx1; x <= this.rx2; x += xinc) {
+					y = this.vy(func(x));
+					if (x == this.rx1)
+						ctx.moveTo(this.vx(x), y);
+					else
+						ctx.lineTo(this.vx(x), y);
+				}
+				ctx.stroke();
+			}
+
+			this.graphArr = function(arr, color, thick) {
+				var ctx = this.ctx;
+
+				ctx.beginPath();
+
+				//ctx.font='15px Arial';
+				//ctx.fillText('Hello World', 10,100);
+
+				ctx.lineWidth = thick;
+				ctx.strokeStyle = color;
+
+				var x;
+				var dx = (this.rx2 - this.rx1) / (arr.length - 1);
+				for (var i = 0; i < arr.length; ++i) {
+					x = this.rx1 + i * dx;
+					y = this.vy(arr[i]);
+					if (x == this.rx1)
+						ctx.moveTo(this.vx(x), y);
+					else
+						ctx.lineTo(this.vx(x), y);
+				}
+				ctx.stroke();
+			}
+		}
+
+		function fun1(x) {
+			return Math.sin(x);
+		}
+		function fun2(x) {
+			return Math.cos(3 * x);
+		}
+
+		function graphFunc(can, x1, x2, y1, y2, col, width, func) {
+			gg = new xyMap(can);
+
+			gg.axis(x1, x2, y1, y2);
+			gg.graphAxis("rgb(128,128,128)");
+			gg.graphFunc(func, col, width);
+		}
+
+		function graphArr(can, x1, x2, y1, y2, col, width, arr) {
+			gg = new xyMap(can);
+
+			gg.axis(x1, x2, y1, y2);
+			gg.graphAxis("rgb(128,128,128)");
+			gg.graphArr(arr, col, width);
+		}
+
+		function test() {
+			var tmp = new Array(200);
+
+			for (var i = 0; i < 200; ++i)
+				tmp[i] = Math.sin(i / 10);
+
+			graphArr("canvas", 0, 15, -1, 1, '#875050', 2, tmp);
+		}
+	</script>
+
+	<div
+		style="position: absolute; left: 0px; top: 0px; visibility: hidden;"
+		id="datadiv">
+		<iframe src="about:blank" height="0" width="0" name="dataframe"></iframe>
+	</div>
+
+	</hl></hl>
+</body>
+</html>

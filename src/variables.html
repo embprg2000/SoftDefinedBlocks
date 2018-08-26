@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+<div id="showAllVars" align="center">showAllVars</div>
+
+<script>
+  var msg = "VAR,SeqControl,Frame,1,1000000,1,SeqControl,Time,0,100,0,SeqControl,Audio,0,1e+06,0,srcSDR,Freq,24000000,1600000000,107500000,srcSDR,IF,200000,4e+06,1e+06,approxRMSIQ,RMS,1e+32,100,0,RMS,RMS,1e+32,100,0,"
+
+  showAllVariables(msg);
+  
+  function showAllVariables(data)
+  {
+	  var r,c;
+	  var html = '<table style="width:70%; padding:5px; border-radius:15px; background-color: blue; color: white; border-collapse: collapse;">\n';
+
+	  r = 1;
+	  fields = data.split(",");
+	 
+	  this.varTabEl = function varTabEl(idx, el)
+	  {
+		  if (idx == 0)
+		  	return '<td style="border: 1px solid white; text-align: right;">'+el+':&nbsp;</td>\n';
+		  else
+		  	return '<td style="border: 1px solid white; text-align: center;"">'+el+'</td>\n';
+	  }
+	  
+	  while (r < fields.length-1) {
+		html += '<tr>\n';
+	  	for (c=0; c<5; ++c)
+	  		html += this.varTabEl( c, fields[r+c] );
+	  	html += '</tr>';
+	    r += 5;
+	  }
+	  html += '</table>';
+	  console.log(html)
+	  
+	  document.getElementById("showAllVars").innerHTML = html;
+  }
+
+</script>
+
+</body>
+</html>

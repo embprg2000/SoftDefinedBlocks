@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<body onload="Selection('Tst','bb',['aa','bb','cc'])">
+
+
+<p id="demo"></p>
+
+
+<div id="selTst">poes</div>
+
+<script type="text/javascript">
+
+	function Selection(id, sel,options) {
+		var html;
+		html = '<select id="selId' + id + '" onchange="onChangeSel(this.id)">';
+		for (var i = 0; i < options.length; ++i)
+		{
+			var opt = options[i]
+			
+			if (sel == opt)
+				html += '<option value="' + opt + '" selected>' + opt;
+			else
+				html += '<option value="' + opt + '">' + opt;
+		}
+			
+		html += '</select>';
+		console.log(html)
+		document.getElementById('sel' + id).innerHTML = html;
+		
+		onChangeSel = function(id)
+		{
+			var x = document.getElementById(id).value;
+			
+			document.getElementById("demo").innerHTML = "You selected: " + x;
+			console.log(id+": :"+x)
+		}
+	}
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+html, body, table {
+	height: 100%
+}
+
+.sideMenu {
+	height: 100%;
+	z-index: 1;
+	left: 0;
+	background-color: #141;
+	overflow-x: hidden;
+	padding-top: 10px;
+}
+
+.sideMenu a {
+	padding: 8px 8px 8px 8px;
+	text-decoration: none;
+	font-size: 20px;
+	color: #A1A1A1;
+	display: block;
+	transition: 0.3s
+}
+
+.sideMenu a:hover, .offcanvas a:focus {
+	color: #f1f1f1;
+}
+
+ul.designMenu {
+	width: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.designMenu li {
+	float: left;
+}
+
+/* Style the links inside the list items */
+ul.designMenu li a {
+	display: inline-block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.designMenu li a:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current DesignMenulink class */
+ul.designMenu li a:focus, .active {
+	background-color: #ccc;
+}
+
+table.FMRadio {
+	width:70%
+	border: 1px solid white;
+	border-radius: 10px;
+	border-collapse: collapse;
+	padding: 5px;
+	text-align: center;
+	background-color: blue;
+	color: white;	
+}
+
+td.FMRadio {
+	border: 1px solid white;
+	border-radius: 10px;
+	border-collapse: collapse;
+	padding: 5px;
+	text-align: center;
+	background-color: blue;
+	color: white;
+}
+
+/* Style the DesignMenu content */
+.designMenuContent {
+	display: none;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-top: none;
+}
+
+div.relative {
+	position: relative;
+	width: 400px;
+	height: 200px;
+	border: 3px solid #73AD21;
+}
+
+div.absolute {
+	position: absolute;
+	top: 40px;
+	left: 10px;
+	width: 200px;
+	height: 100px;
+	border: 3px solid #73AD21;
+}
+</style>
+<head>
+</head>
+<body>
+
+	<table border="10 px" bordercolor="#73AD21" width="100%">
+		<tr>
+			<td height="70px" width="120px" valign="top">
+				<!-- Logo Window -->
+				<canvas id="idLogo" width="120" height="50" style="border: 0px solid #d3d3d3;">
+		Your browser does not support the canvas element.
+	</canvas>
+			</td>
+			<td height="70px" valign="top">
+				<!-- Top Status Window -->
+				<div id="idTopWin" class="sideMenu">
+					<table border="0px" style="width: 100px; border-radius: 10px; font-family: arial; font-size: 8pt; background-color: #818181; color: black;">
+						<tr>
+							<td align="right">Tx:</td>
+							<td align="center"><div id="connTx1">0</div></td>
+							<td align="center"><div id="connTx2">0</div></td>
+						</tr>
+						<tr>
+							<td align="right">Rx:</td>
+							<td align="center"><div id="connRx1">0</div></td>
+							<td align="center"><div id="connRx2">0</div></td>
+						</tr>
+						<tr>
+							<td align="right">St:</td>
+							<td colspan="2" align="center"><div id="connSt">connected</div></td>
+						</tr>
+					</table>
+				</div>
+			</td>
+			<div></div>
+			<td></td>
+		</tr>
+		<tr>
+			<td width="120px" valign="top">
+				<!-- Side Menu Window -->
+				<div id="idSideMenu" class="sideMenu">
+					<a href="javascript:void(0)" onclick="menuFM()">FM Radio</a>
+					<a href="javascript:void(0)" onclick="menuADS()">ADS</a>
+					<a href="javascript:void(0)" onclick="menuMorse()">Morse</a>
+					<a href="javascript:void(0)" onclick="menuPager()">Pager</a>
+					<a href="javascript:void(0)" onclick="menuX10()">X10</a>
+					<a href="javascript:void(0)" onclick="menuDesign()">Design</a>
+					<a href="javascript:void(0)" onclick="menuShowAllVariables()">Variables</a>
+				</div>
+			</td>
+			<td valign="top">
+				<!-- This is the main window -->
+				<ul id="idDesignMenu" class="designMenu">
+					<li><a href="javascript:void(0)" class="designMenulinks" onclick="menuDesignTap(event, 'idDesignSources')">Sources</a></li>
+					<li><a href="javascript:void(0)" class="designMenulinks" onclick="menuDesignTap(event, 'idDesignProcess')">Process</a></li>
+					<li><a href="javascript:void(0)" class="designMenulinks" onclick="menuDesignTap(event, 'idDesignSinks')">Sinks</a></li>
+					<li><a href="javascript:void(0)" class="designMenulinks" onclick="menuCloseDesign()">Back</a></li>
+				</ul>
+
+				<div id="idDesignSources" class="designMenuContent">
+					<h3>Sources</h3>
+					<p>
+						A <u>sink block</u> only has an output connection.
+					</p>
+				</div>
+
+				<div id="idDesignProcess" class="designMenuContent">
+					<h3>Process</h3>
+					<p>
+						A <u>process block</u> processes the input to generate an output.
+					</p>
+					<div class="relative">
+						This div element has position: relative;
+						<div class="absolute">This div element has position: absolute;</div>
+					</div>
+				</div>
+
+				<div id="idDesignSinks" class="designMenuContent">
+					<h3>Sinks</h3>
+					<p>
+						A <u>Sink block</u> only has an input connection.
+					</p>
+				</div>
+
+				<div id="idMainWin"">
+					<div id="idShowAllVars">ShowAllVars</div>
+					
+					<div id="idFMRadio">
+						<table class="FMRadio">
+						<tr>
+							<th style="width: 100px">Frame</th>
+							<th style="width: 100px">Delta</th>
+							<th style="width: 100px">Audio</th>
+							<th style="width: 100px">Frequency</th>
+							<th style="width: 100px">Fc</th>
+							<th style="width: 100px">RF</th>
+							<th style="width: 100px">BaseBand</th>
+							<th style="width: 100px">LNA gain</th>					
+						</tr>
+						<tr>
+							<td class="FMRadio"><div id="Frame">-</div></td>
+							<td class="FMRadio"><div id="Delta">-</div></td>
+							<td class="FMRadio"><div id="Audio">-</div></td>
+							<td class="FMRadio"><div id="Freq">-</div></td>
+							<td class="FMRadio"><div id="Fc">-</div></td>
+							<td class="FMRadio"><div id="RF">-</div></td>
+							<td class="FMRadio"><div id="BaseBand">-</div></td>
+							<td class="FMRadio"><div id="LNA gain">-</div></td>				
+						</tr>
+						</table>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</body>
+
+<script type="text/javascript">
+		var ServerEvent;
+		var AllVariables = "VAR,SeqControl,Frame,1,1000000,1,SeqControl,Time,0,100,0,SeqControl,Audio,0,1e+06,0,srcSDR,Freq,24000000,1600000000,107500000,srcSDR,IF,200000,4e+06,1e+06,approxRMSIQ,RMS,1e+32,100,0,RMS,RMS,1e+32,100,0,";
+			
+		<!-- Connect to server -->
+		if (typeof (EventSource) !== "undefined") {
+			document.getElementById("connSt").innerHTML = "Not Connected";
+			ServerEvent = new EventSource("http://localhost:1235");
+
+			document.getElementById("connSt").innerHTML = "After EventSource";
+
+			ServerEvent.onopen = function(event) {
+				document.getElementById("connSt").innerHTML = "Connected";
+			};
+
+			ServerEvent.onmessage = function(event) {
+				//document.getElementById("connMsg").innerHTML = event.data.substring(0,15);
+				var fld = event.data.split(",");
+
+				if (fld[0] == "VAL" || fld[0] == "STR")
+				{
+					for (var i=1; i<fld.length-1; i += 2)
+						document.getElementById(fld[i]).innerHTML = fld[i+1];
+				}
+				
+				else if (fld[0] == "AllVars")
+				{
+					AllVariables = event.data;
+					showAllVariables();
+				}
+
+				else if (fld[0] == "GRP") {
+// 					console.log(fld[1] + "," + fld[2] + "," + fld[3] + ","
+// 							+ fld[4] + "," + fld[5] + "," + fld[6] + ","
+// 							+ fld[7])
+					graphArr(fld[1], fld[2], fld[3], fld[4], fld[5], fld[6],
+							fld[7], fld.slice(8, fld.length));
+				}
+			};
+
+			ServerEvent.onerror = function(event) {
+				document.getElementById("connSt").innerHTML = "Error";
+			};
+
+		} else {
+			document.getElementById("result").innerHTML = "Sorry, your browser does not support server-sent events...";
+		}
+		
+		<!-- Send message to server -->
+		function msgToServer(msg) {
+			window.frames['dataframe'].window.location.replace(msg);
+		}
+
+		function buttonToServer(str) {
+			if (str == 'Exit')
+			{
+				ServerEvent.close();
+				document.getElementById("connSt").innerHTML = "Closed";
+			}			
+			msgToServer("/command/BUTT," + str);
+		}		
+		
+		<!-- Puts the increadable logo at the top left corner -->
+	    var canvas = document.getElementById("idLogo");
+		var ctx    = canvas.getContext("2d");
+
+		ctx.font="40px Comic Sans MS";
+		ctx.fillStyle = "blue";
+		ctx.textAlign = "center";
+		ctx.fillText("S.D.B.", canvas.width/2, canvas.height/2+12);
+    
+		<!-- Control of the design tabs -->
+		function menuDesignTap(evt, type) {
+			var i, DesignMenucontent, DesignMenulinks;
+			DesignMenucontent = document.getElementsByClassName("designMenuContent");
+			for (i = 0; i < DesignMenucontent.length; i++) {
+				DesignMenucontent[i].style.display = "none";
+			}
+			DesignMenulinks = document.getElementsByClassName("designMenulinks");
+			for (i = 0; i < DesignMenulinks.length; i++) {
+				DesignMenulinks[i].className = DesignMenulinks[i].className.replace(" active", "");
+			}
+			document.getElementById(type).style.display = "block";
+			evt.currentTarget.className += " active";
+		}
+
+		function menuDesign() {
+			document.getElementById("idDesignMenu").style.width = "100%";
+		}
+
+		function menuCloseDesign() {
+			document.getElementById("idDesignMenu").style.width = "0px";
+			
+			var i, DesignMenucontent;
+			DesignMenucontent = document.getElementsByClassName("designMenuContent");
+			for (i = 0; i < DesignMenucontent.length; i++) {
+				DesignMenucontent[i].style.display = "none";
+			}			
+		}
+
+		<!-- Show all variables -->	
+		
+		function menuShowAllVariables()
+		{
+			buttonToServer('AllVars')
+		}
+		
+		  function showAllVariables()
+		  {
+			  var r,c;
+			  var html = '<table style="width:70%; padding:5px; border-radius:15px; background-color: blue; color: white; border-collapse: collapse;">\n';
+	
+			  menuCloseDesign();
+			  
+			  r = 1;
+			  fields = AllVariables.split(",");
+			 
+			  this.varTabEl = function varTabEl(idx, el)
+			  {
+				  if (idx == 0)
+				  	return '<td style="border: 1px solid white; text-align: right;">'+el+':&nbsp;</td>\n';
+				  else
+				  	return '<td style="border: 1px solid white; text-align: center;"">'+el+'</td>\n';
+			  }
+			  
+			  while (r < fields.length-1) {
+				html += '<tr>\n';
+			  	for (c=0; c<5; ++c)
+			  		html += this.varTabEl( c, fields[r+c] );
+			  	html += '</tr>';
+			    r += 5;
+			  }
+			  html += '</table>';
+			  console.log(html)
+			  
+			  document.getElementById("idShowAllVars").innerHTML = html;
+		  }
+		
+		<!-- Helper functions -->
+		function ModifyBGColor(id, newColor) {
+			var mElement = document.getElementById(id);
+			mElement.style.backgroundColor = newColor;
+		}
+		function ModifyTextColor(id, newColor) {
+			var mElement = document.getElementById(id);
+			mElement.style.color = newColor;
+		}
+		function ModifyBoxSize(id, newWidth, newHeight) {
+			var mElement = document.getElementById(id);
+			mElement.style.width = newWidth;
+			mElement.style.height = newheight;
+		}
+		function ModifyBoxPosition(id, newLeft, newTop) {
+			var mElement = document.getElementById(id);
+			mElement.style.left = newLeft;
+			mElement.style.top = newTop;
+		}		
+		</script>
+	<div
+		style="position: absolute; left: 0px; top: 0px; visibility: hidden;"
+		id="datadiv">
+		<iframe src="about:blank" height="0" width="0" name="dataframe"></iframe>
+	</div>
+</body>		
+</html>
+
+

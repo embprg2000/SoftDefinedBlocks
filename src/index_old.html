@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+body {
+	font-family: "Lato", sans-serif;
+}
+
+.sideMenu {
+	height: 100%;
+	width: 120px;
+	position: fixed;
+	z-index: 1;
+	top: 100px;
+	left: 0;
+	background-color: #141;
+	overflow-x: hidden;
+	padding-top: 10px;
+}
+
+.sideMenu a {
+	padding: 8px 8px 8px 8px;
+	text-decoration: none;
+	font-size: 20px;
+	color: #A1A1A1;
+	display: block;
+	transition: 0.3s
+}
+
+.sideMenu a:hover, .offcanvas a:focus {
+	color: #f1f1f1;
+}
+
+.topScr {
+	height: 100px;
+	width: 100%;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #141;
+	overflow-x: hidden;
+	padding-top: 10px;
+}
+
+ul.DesignMenu {
+	width: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.DesignMenu li {
+	float: left;
+}
+
+/* Style the links inside the list items */
+ul.DesignMenu li a {
+	display: inline-block;
+	color: black;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+	transition: 0.3s;
+	font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.DesignMenu li a:hover {
+	background-color: #ddd;
+}
+
+/* Create an active/current DesignMenulink class */
+ul.DesignMenu li a:focus, .active {
+	background-color: #ccc;
+}
+
+/* Style the DesignMenu content */
+.DesignMenucontent {
+	display: none;
+	padding: 6px 12px;
+	border: 1px solid #ccc;
+	border-top: none;
+}
+
+div.relative {
+	position: relative;
+	width: 400px;
+	height: 200px;
+	border: 3px solid #73AD21;
+}
+
+div.absolute {
+	position: absolute;
+	top: 40px;
+	left: 10px;
+	width: 200px;
+	height: 100px;
+	border: 3px solid #73AD21;
+}
+</style>
+<body>
+
+	<div id="idSideMenu" class="sideMenu">
+		<a href="javascript:void(0)" onclick="menuFM()">FM Radio</a>
+		<a href="javascript:void(0)" onclick="menuADS()">ADS</a>
+		<a href="javascript:void(0)" onclick="menuMorse()">Morse</a>
+		<a href="javascript:void(0)" onclick="menuPager()">Pager</a>
+		<a href="javascript:void(0)" onclick="menuX10()">X10</a>
+		<a href="javascript:void(0)" onclick="menuDesign()">Design</a>
+	</div>
+
+	<div id="idTop" class="topScr">
+	    <canvas id="idLogo" width="120" height="50" style="border:1px solid #d3d3d3;">
+			Your browser does not support the canvas element.
+		</canvas>	
+    </div>
+
+
+	<ul id="idDesignMenu" class="DesignMenu">
+		<li><a href="javascript:void(0)" class="DesignMenulinks" onclick="menuDesignTap(event, 'Sources')">Sources</a></li>
+		<li><a href="javascript:void(0)" class="DesignMenulinks" onclick="menuDesignTap(event, 'Process')">Process</a></li>
+		<li><a href="javascript:void(0)" class="DesignMenulinks" onclick="menuDesignTap(event, 'Sinks')">Sinks</a></li>
+		<li><a href="javascript:void(0)" class="DesignMenulinks" onclick="menuCloseDesign()">Back</a></li>
+	</ul>
+
+	<div id="Sources" class="DesignMenucontent">
+		<h3>Sources</h3>
+		<p>
+			A <u>sink block</u> only has an output connection.
+		</p>
+	</div>
+
+	<div id="Process" class="DesignMenucontent">
+		<h3>Process</h3>
+		<p>
+			A <u>process block</u> processes the input to generate an output.
+		</p>
+		<div class="relative">
+			This div element has position: relative;
+			<div class="absolute">This div element has position: absolute;</div>
+		</div>
+	</div>
+
+	<div id="Sinks" class="DesignMenucontent">
+		<h3>Sinks</h3>
+		<p>
+			A <u>Sink block</u> only has an input connection.
+		</p>
+	</div>
+
+
+	<script type="text/javascript">
+	    var canvas = document.getElementById("idLogo");
+		var ctx=canvas.getContext("2d");
+		
+		ctx.font="40px Comic Sans MS";
+		ctx.fillStyle = "blue";
+		ctx.textAlign = "center";
+		ctx.fillText("S.D.B.", canvas.width/2, canvas.height/2+12);
+    
+		function menuDesignTap(evt, type) {
+			var i, DesignMenucontent, DesignMenulinks;
+			DesignMenucontent = document.getElementsByClassName("DesignMenucontent");
+			for (i = 0; i < DesignMenucontent.length; i++) {
+				DesignMenucontent[i].style.display = "none";
+			}
+			DesignMenulinks = document.getElementsByClassName("DesignMenulinks");
+			for (i = 0; i < DesignMenulinks.length; i++) {
+				DesignMenulinks[i].className = DesignMenulinks[i].className.replace(" active", "");
+			}
+			document.getElementById(type).style.display = "block";
+			evt.currentTarget.className += " active";
+		}
+
+		function menuDesign() {
+			document.getElementById("idSideMenu").style.width = "0px";
+			document.getElementById("idDesignMenu").style.width = "100%";
+		}
+
+		function menuCloseDesign() {
+			document.getElementById("idSideMenu").style.width = "120px";
+			document.getElementById("idDesignMenu").style.width = "0px";
+			
+			var i, DesignMenucontent;
+			DesignMenucontent = document.getElementsByClassName("DesignMenucontent");
+			for (i = 0; i < DesignMenucontent.length; i++) {
+				DesignMenucontent[i].style.display = "none";
+			}			
+		}
+	</script>
+
+</body>
+</html>

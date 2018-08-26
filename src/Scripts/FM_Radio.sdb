@@ -1,0 +1,36 @@
+freq = 107.5e6;
+
+//freq = 854.9875e6;
+//freq = 162.550e6;
+//freq = 462.5625e6;
+
+ifrate  = 1.0e6;
+pcmrate = 48000;
+bandwidth_pcm = 15000;
+downSample = 12.0;
+downRate   = ifrate / downSample;
+
+sourceRTL(freq, ifrate, true);
+IQFFT(10,"IQspec");
+RMS_IQ("RF","%+1.2f", true, 0.05);
+
+// Construct LowPassFilterFirIQ
+bandwidth_if = 100000;
+lowPassFIR(10, bandwidth_if / ifrate);
+
+// Construct PhaseDiscriminator
+freq_dev = 75000;
+PhaseDiscriminator(freq_dev / ifrate);
+
+downsample(downSample * 2.0, 0.2, downSample, true);
+FFT(12,"Base");
+downsample(((downRate / pcmrate) * 2.0), bandwidth_pcm / downRate, downRate / pcmrate,	false);
+
+RMS("BaseBand", "%+2.2f", true, 0.05);
+
+highPassIIR(30.0 / pcmrate);
+
+deemphasis = 50;
+lowPassRC(deemphasis * pcmrate * 1.0e-6);
+
+sinkAudio();

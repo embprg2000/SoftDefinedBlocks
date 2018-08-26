@@ -1,0 +1,217 @@
+--------------
+*d5365fe57f8b6ca504a7b78445e4;
+DF=26 CA=5
+ICAO Address=365fe5
+PI=0x8445e4
+Type Code=15 S.Type/Ant.=7
+--------------
+*8da0ade25817a39bcbcb5a16b293;
+DF=17 CA=5
+ICAO Address=a0ade2
+PI=0x16b293
+Type Code=11 S.Type/Ant.=0
+--------------
+*cde0ad729914dfcbc85e1a343e21;
+DF=25 CA=5
+ICAO Address=e0ad72
+PI=0x343e21
+Type Code=19 S.Type/Ant.=1
+--------------
+*9bd09dfd334995c8b9382da4791c;
+DF=19 CA=3
+ICAO Address=d09dfd
+PI=0xa4791c
+Type Code=6 S.Type/Ant.=3
+--------------
+*806343dce5b4ddcff2a599571df3;
+DF=16 CA=0
+ICAO Address=6343dc
+PI=0x571df3
+Type Code=28 S.Type/Ant.=5
+--------------
+*be9d991fbf712c8a29e94a31bf5a;
+DF=23 CA=6
+ICAO Address=9d991f
+PI=0x31bf5a
+Type Code=23 S.Type/Ant.=7
+--------------
+*ed8fb96e427c253aeabc9d7a3f7d;
+DF=29 CA=5
+ICAO Address=8fb96e
+PI=0x7a3f7d
+Type Code=8 S.Type/Ant.=2
+--------------
+*8cae363e9d10863ea8043115e0ad;
+DF=17 CA=4
+ICAO Address=ae363e
+PI=0x15e0ad
+Type Code=19 S.Type/Ant.=5
+--------------
+*9c905e91e5733fb5d903ea8b856e;
+DF=19 CA=4
+ICAO Address=905e91
+PI=0x8b856e
+Type Code=28 S.Type/Ant.=5
+--------------
+*a3556f24d8bd447dc50374dd3e60;
+DF=20 CA=3
+ICAO Address=556f24
+PI=0xdd3e60
+Type Code=27 S.Type/Ant.=0
+--------------
+*ba93a01135c87117e9eed873841a;
+DF=23 CA=2
+ICAO Address=93a011
+PI=0x73841a
+Type Code=6 S.Type/Ant.=5
+--------------
+*9df1bfba1716d1823863ad125854;
+DF=19 CA=5
+ICAO Address=f1bfba
+PI=0x125854
+Type Code=2 S.Type/Ant.=7
+--------------
+*8da0ade29914e389ca50126d5c23;
+DF=17 CA=5
+ICAO Address=a0ade2
+PI=0x6d5c23
+Type Code=19 S.Type/Ant.=1
+--------------
+*eee0c8d466994320d4729acb9118;
+DF=29 CA=6
+ICAO Address=e0c8d4
+PI=0xcb9118
+Type Code=12 S.Type/Ant.=6
+--------------
+*92e0590e58ad8da136feb869b3c3;
+DF=18 CA=2
+ICAO Address=e0590e
+PI=0x69b3c3
+Type Code=11 S.Type/Ant.=0
+--------------
+*c70f4f30f6efb7f863284e119aa2;
+DF=24 CA=7
+ICAO Address=0f4f30
+PI=0x119aa2
+Type Code=30 S.Type/Ant.=6
+--------------
+*8da0ade29914e786c84012f24333;
+DF=17 CA=5
+ICAO Address=a0ade2
+PI=0xf24333
+Type Code=19 S.Type/Ant.=1
+--------------
+*97b76c6292eb49085a92f461d546;
+DF=18 CA=7
+ICAO Address=b76c62
+PI=0x61d546
+Type Code=18 S.Type/Ant.=2
+--------------
+*8dac763e58a103bd8f7c7a39e79d;
+DF=17 CA=5
+ICAO Address=ac763e
+PI=0x39e79d
+Type Code=11 S.Type/Ant.=0
+--------------
+*d4b90b962e82b789645dce4e262b;
+DF=26 CA=4
+ICAO Address=b90b96
+PI=0x4e262b
+Type Code=5 S.Type/Ant.=6
+--------------
+*8dac763e58a10569b608e6ad8f3b;
+DF=17 CA=5
+ICAO Address=ac763e
+PI=0xad8f3b
+Type Code=11 S.Type/Ant.=0
+--------------
+*a6c3ebaf72125dce64dcfe33b465;
+DF=20 CA=6
+ICAO Address=c3ebaf
+PI=0x33b465
+Type Code=14 S.Type/Ant.=2
+--------------
+*9f9ddb797a3d4c8d7f141a7146e3;
+DF=19 CA=7
+ICAO Address=9ddb79
+PI=0x7146e3
+Type Code=15 S.Type/Ant.=2
+--------------
+*8da0ade25817673ff816ccfaa8ac;
+DF=17 CA=5
+ICAO Address=a0ade2
+PI=0xfaa8ac
+Type Code=11 S.Type/Ant.=0
+--------------
+*8da0ade29914e785283c92418a0b;
+DF=17 CA=5
+ICAO Address=a0ade2
+PI=0x418a0b
+Type Code=19 S.Type/Ant.=1
+--------------
+*8dac76be20041132d7ec20279625;
+DF=17 CA=5
+ICAO Address=ac76be
+PI=0x279625
+Type Code=4 S.Type/Ant.=0
+--------------
+*8ae4e5f65de6acae49d4ec5b9357;
+DF=17 CA=2
+ICAO Address=e4e5f6
+PI=0x5b9357
+Type Code=11 S.Type/Ant.=5
+--------------
+*b1244319dcc1847515cf48f65be3;
+DF=22 CA=1
+ICAO Address=244319
+PI=0xf65be3
+Type Code=27 S.Type/Ant.=4
+--------------
+*eaa16861352cdb390f385285398c;
+DF=29 CA=2
+ICAO Address=a16861
+PI=0x85398c
+Type Code=6 S.Type/Ant.=5
+--------------
+*d056f94c8a50c1e41c294e029b11;
+DF=26 CA=0
+ICAO Address=56f94c
+PI=0x029b11
+Type Code=17 S.Type/Ant.=2
+--------------
+*b2162b928adda31570be22760960;
+DF=22 CA=2
+ICAO Address=162b92
+PI=0x760960
+Type Code=17 S.Type/Ant.=2
+--------------
+*e94526e2ab0dcd0784ce230a17b1;
+DF=29 CA=1
+ICAO Address=4526e2
+PI=0x0a17b1
+Type Code=21 S.Type/Ant.=3
+--------------
+*8c78ad8b6df1aeed9abf137fca66;
+DF=17 CA=4
+ICAO Address=78ad8b
+PI=0x7fca66
+Type Code=13 S.Type/Ant.=5
+--------------
+*8da0ade258173193718a6fa95bb3;
+DF=17 CA=5
+ICAO Address=a0ade2
+PI=0xa95bb3
+Type Code=11 S.Type/Ant.=0
+--------------
+*84a472174cb1036e3209bc32aab4;
+DF=16 CA=4
+ICAO Address=a47217
+PI=0x32aab4
+Type Code=9 S.Type/Ant.=4
+--------------
+*b9569c319909d942aac7aba1a9de;
+DF=23 CA=1
+ICAO Address=569c31
+PI=0xa1a9de
+Type Code=19 S.Type/Ant.=1
+--------------

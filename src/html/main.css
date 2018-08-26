@@ -1,0 +1,115 @@
+html, body, table {
+	height: 100%;
+	background-color: #e3e3e3;
+}
+
+table.main {
+	border-collapse:collapse;
+	border-spacing:0;
+	width: 100%;
+}
+
+td.mainTop {
+	height:60px;
+	width: 120px;
+	valign: top;
+	padding: 5px 5px 5px 5px;
+}
+
+.sideMenu {
+	height: 100%;
+	z-index: 1;
+	left: 0;
+	background-color: #d3d3d3;
+	overflow-x: hidden;
+	padding-top: 10px;
+}
+
+.sideMenu a {
+	padding: 8px 8px 8px 8px;
+	text-decoration: none;
+	font-size: 20px;
+	color: #000000;
+	display: block;
+	transition: 0.3s
+}
+
+.sideMenu a:hover, .offcanvas a:focus {
+	color: #FFFFFF;
+}
+
+table.clssVars {
+	width:70%
+	border: 1px solid white;
+	border-radius: 10px;
+	border-collapse: collapse;
+	padding: 5px;
+	text-align: center;
+	background-color: #636363;
+	color: white;	
+}
+
+td.clssVars {
+	border: 1px solid white;
+	border-radius: 10px;
+	border-collapse: collapse;
+	padding: 5px;
+	text-align: center;
+	background-color: #636363;
+	color: white;
+}
+
+.buttonPush {
+    background-color: rgb(0, 0, 0);
+    -webkit-border-radius: 15;
+    -moz-border-radius: 15;
+    border-radius: 15px;
+    border: 2px solid white;
+    color: white;
+    padding: 4px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    margin: 4px 2px;
+    cursor: pointer;
+    height:25px;
+    width:70px;
+}
+
+.buttonPush:hover {
+  background: #3cb0fd;
+  text-decoration: none;
+}
+
+table.slider {
+    border-radius: 10px;
+    padding: 2px;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    text-align: center;
+    background-color: #636363;
+    color: white;   
+}
+
+td.slider {
+    border: 1px solid white;
+    border-collapse: collapse;
+    padding: 2px;
+    text-align: center;
+    background-color: #636363;
+    font-size: 12px;
+}
+
+p.center {
+    text-align: center;
+}
+
+p.InfoText
+{
+	width: 200px;
+	border: 1px solid #000000;
+	word-wrap: break-word; 
+	font-family: arial, sans-serif;
+	font-size: 8px;
+}

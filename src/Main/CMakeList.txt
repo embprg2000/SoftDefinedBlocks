@@ -1,0 +1,10 @@
+add_executable(main
+	BlockSet.cpp
+	main.cpp
+	Misc.cpp 
+	SeqControl.cpp 
+	Variables.cpp
+	Error.cpp
+	main_old.cpp
+	ProcessScript.cpp
+	SimpleParser.cpp)

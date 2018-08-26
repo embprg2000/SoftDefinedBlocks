@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas1" width="6" height="120" style="border: 1px solid black;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+
+<script>
+function levelBar(canvas,col,min,max)
+{
+	c   = document.getElementById(canvas);
+	this.ctx   = c.getContext("2d");
+	this.yy    = c.height
+	this.min   = min;
+	this.max   = max
+	this.steps = 15;
+	this.v1    = Math.round(this.steps * 0.75);
+	this.v2    = Math.round(this.steps * 0.85);
+	this.dv    = (max -min) / (this.steps);
+	this.ctx.fillStyle = col;
+	this.ctx.fillRect(0, 0, c.width, c.height);
+
+	this.draw = function(val)
+	{
+		this.ctx.beginPath();
+		this.ctx.lineWidth = "6";
+		this.ctx.strokeStyle = "rgb(0,255,0)";
+		
+		dy = this.yy / this.steps;
+        mm = Math.round((val - this.min) / this.dv);
+		for (var i=0; i<mm; ++i)
+		{
+            if (i == this.v1)
+            {
+                this.ctx.stroke();
+                this.ctx.beginPath();
+                this.ctx.strokeStyle = "yellow";
+            }			
+			if (i == this.v2)
+			{
+				this.ctx.stroke();
+		        this.ctx.beginPath();
+		        this.ctx.strokeStyle = "red";
+			}
+			y = this.yy - i*dy;
+			this.ctx.moveTo(3, y+1);
+			this.ctx.lineTo(3, y+dy-1);
+		}
+		this.ctx.stroke();
+    }
+}
+
+var obj = new levelBar("myCanvas1","#636363",-15,15);
+
+var cnt = -15;
+
+function tst()
+{
+	obj.draw(cnt);
+	cnt += 2;
+}
+
+setInterval(tst, 1000);
+
+</script>
+
+<p id="val"></p>
+
+</body>
+</html>

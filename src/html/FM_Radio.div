@@ -1,0 +1,9 @@
+<div id="idVars">vars</div>
+<div id="idVarsSourceRTL">RTL</div>
+<div id="idButtAGC">Button</div>
+<div id="idRTL_Info">RTL_Info</div>
+<div id="idSel">Sel</div>
+<div id="idRdo">Radio</div>
+<div id="idSliders">Slider</div>
+<div id="idFFTBase">Graph</div>
+<div id="idFFTIQspec">IQspec</div>

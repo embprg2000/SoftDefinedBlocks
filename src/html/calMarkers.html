@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="result"> jaja</p>
+
+<canvas id="myCanvas" width="500" height="40" style="border: 1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.
+</canvas>
+<script>
+
+var ctx = document.getElementById("myCanvas").getContext("2d"); 
+
+var v1 = 20;
+var v2 = 470;
+var x1 = 2;
+var x2 = 33;
+
+p = Math.log10(x2-x1);
+k = Math.floor(p/3);
+if (k != 0)
+{
+	div = Math.pow(10,k*3);
+	x1  = x1 / div;
+	x2  = x2 / div;
+    p   = Math.log10(x2-x1);
+}
+
+m = Math.pow(10,Math.floor(p));
+d = m;
+
+function dx(x)
+{
+	return v1 + (((v2 - v1) / (x2 - x1)) * (x-x1));
+}
+
+ctx.moveTo(v1,20);
+ctx.lineTo(v2,20);
+
+
+if (((x2-x1) / d) < 5)
+{
+	d /= 2;
+    if (((x2-x1) / d) < 5)
+    	d /= 2.5;
+}
+
+ctx.font = "12px Comic Sans MS";
+ctx.fillStyle = "black";
+ctx.textAlign = "center";
+
+var v = x1;
+var x = Math.floor(v/d) * d;
+while (x <= x2+1e-12) // 1e-12 For rounding errors
+{
+	if (x >= x1-1e-12) // 1e-12 For rounding errors
+	{
+	    ctx.moveTo(dx(x),20);
+		ctx.lineTo(dx(x),25);
+		ctx.fillText(x.toFixed(2), dx(x), 37); 
+		console.log(x+' '+v)
+	}
+    v += d;
+    x = Math.floor(v/d) * d;
+}
+ctx.stroke();
+    
+document.getElementById("result").innerHTML = k+' '+d+' '+m+"  "+dx(500);
+
+</script>
+
+</body>
+</html>
